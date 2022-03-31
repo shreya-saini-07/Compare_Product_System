@@ -1,0 +1,28 @@
+#q51 WAP to enter N sorted elements and insert an element at appropriate position
+
+print("WAP to enter N sorted elements and insert an element at appropriate position")
+
+L = []
+x=int(input("how many values do you want to enter in list : "))
+for i in range(x):
+   y=int(input("Enter the value : "))
+   L.append(y)
+L.sort()
+print(L)
+
+s=int(input("Enter the element to insert : "))
+L.append(s)
+
+L.sort()
+print(L)  
+
+#output
+WAP to enter N sorted elements and insert an element at appropriate position
+how many values do you want to enter in list : 4
+Enter the value : 3
+Enter the value : 7
+Enter the value : 5
+Enter the value : 21
+[3, 5, 7, 21]
+Enter the element to insert : 8
+[3, 5, 7, 8, 21]

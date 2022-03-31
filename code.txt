@@ -1,0 +1,3298 @@
+import mysql.connector
+from tabulate import tabulate
+from tkinter import *
+from PIL import ImageTk
+from tkinter import messagebox
+import pymysql
+
+mycon=mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="shiset16sam@",
+    database="product1")
+mycursor=mycon.cursor()
+
+
+class App:
+   
+   def __init__(self,root):
+      self.root=root
+      self.root.title("Login and Register")
+      self.root.geometry("1350x700+0+0")
+      self.root.resizable(False,False)
+      self.loginform()
+
+   def loginform(self):
+       Frame_login = Frame(self.root, bg="white")
+       Frame_login.place(x=0, y=0, height=700, width=1366)
+       self.img = ImageTk.PhotoImage(
+           file=r"C:\Users\pc\Desktop\CS PROJECT\background.jpeg")
+       img = Label(Frame_login, image=self.img).place(x=0, y=0, width=1366, height=700)
+       frame_input = Frame(self.root, bg='white')
+       frame_input.place(x=500, y=130, height=450, width=350)
+
+       label1 = Label(frame_input, text="Login", font=('impact', 32, 'bold'), fg="black", bg='white')
+       label1.place(x=120, y=10)
+
+       # EMAIL FIELD
+       label2 = Label(frame_input, text="Email ID", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label2.place(x=30, y=95)
+       self.email_txt = Entry(frame_input, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.email_txt.place(x=30, y=145, width=270, height=35)
+
+       # PASSWORD FIELD
+       label3 = Label(frame_input, text="Password", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label3.place(x=30, y=195)
+       self.password = Entry(frame_input, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.password.place(x=30, y=245, width=270, height=35)
+
+       # ADMIN LOGIN
+       btn9 = Button(frame_input, text="Admin Login", command=self.admin_loginform, cursor="hand2",
+                     font=("calibri", 12),
+                     fg="black", bg="white", bd=0, width=15, height=1)
+       btn9.place(x=120, y=370)
+
+       # LOGIN BUTTON
+       btn2 = Button(frame_input, text="Login", command=self.login, cursor="hand2", font=("times new roman", 15),
+                     fg="white", bg="orangered", bd=0, width=15, height=1)
+       btn2.place(x=93, y=320)
+
+       # REGISTER BUTTON
+       btn3 = Button(frame_input, command=self.Register, text="Not Registered?", cursor="hand2", font=("calibri", 12),
+                     bg='white', fg="black", bd=0)
+       btn3.place(x=130, y=405)
+
+   def login(self):
+       if self.email_txt.get() == "" or self.password.get() == "":
+           messagebox.showerror("Error", "All fields are required", parent=self.root)
+       else:
+           try:
+               con = pymysql.connect(host='localhost', user='root', password='shiset16sam@',
+                                     database='product1')
+               cur = con.cursor()
+               cur.execute('select * from register where emailid=%s and password=%s',
+                           (self.email_txt.get(), self.password.get()))
+               row = cur.fetchone()
+               if row == None:
+                   messagebox.showerror('Error', 'Invalid Username And Password', parent=self.root)
+                   self.loginclear()
+                   self.email_txt.focus()
+               else:
+                   self.root.destroy()
+                   self.appscreen()
+           except Exception as es:
+               messagebox.showerror('Error', f'Error Due to : {str(es)}', parent=self.root)
+
+   def admin_loginform(self):
+       Frame_login = Frame(self.root, bg="white")
+       Frame_login.place(x=0, y=0, height=700, width=1366)
+       self.img = ImageTk.PhotoImage(
+           file=r"C:\Users\pc\Desktop\CS PROJECT\background.jpeg") 
+       img = Label(Frame_login, image=self.img).place(x=0, y=0, width=1366, height=700)
+       frame_input = Frame(self.root, bg='white')
+       frame_input.place(x=500, y=130, height=450, width=350)
+
+       label1 = Label(frame_input, text="Admin Login", font=('impact', 32, 'bold'), fg="black", bg='white')
+       label1.place(x=65, y=10)
+
+       # EMAIL FIELD
+       label2 = Label(frame_input, text="Email ID", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label2.place(x=30, y=95)
+       self.email_txt = Entry(frame_input, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.email_txt.place(x=30, y=145, width=270, height=35)
+
+       # PASSWORD FIELD
+       label3 = Label(frame_input, text="Password", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label3.place(x=30, y=195)
+       self.password = Entry(frame_input, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.password.place(x=30, y=245, width=270, height=35)
+
+       # LOGIN BUTTON
+       btn2 = Button(frame_input, text="Login", command=self.admin_login, cursor="hand2", font=("times new roman", 15),
+                     fg="white", bg="orangered", bd=0, width=15, height=1)
+       btn2.place(x=100, y=340)
+
+   def admin_login(self):
+       if self.email_txt.get() == "" or self.password.get() == "":
+           messagebox.showerror("Error", "All fields are required", parent=self.root)
+       else:
+           try:
+               con = pymysql.connect(host='localhost', user='root', password='shiset16sam@',
+                                     database='product1') 
+               cur = con.cursor()
+               cur.execute('select * from adminregister where emailid=%s and password=%s',
+                           (self.email_txt.get(), self.password.get()))
+               row = cur.fetchone()
+               if row == None:
+                   messagebox.showerror('Error', 'Invalid Username And Password', parent=self.root)
+                   self.loginclear()
+                   self.email_txt.focus()
+               else:
+                   self.root.destroy()
+                   self.admin()
+           except Exception as es:
+               messagebox.showerror('Error', f'Error Due to : {str(es)}', parent=self.root)
+
+   def Register(self):
+       Frame_login1 = Frame(self.root, bg="white")
+       Frame_login1.place(x=0, y=0, height=700, width=1366)
+       self.img = ImageTk.PhotoImage(
+           file=r"C:\Users\pc\Desktop\CS PROJECT\background.jpeg")
+       img = Label(Frame_login1, image=self.img).place(x=0, y=0, width=1366, height=700)
+       frame_input2 = Frame(self.root, bg='white')
+       frame_input2.place(x=320, y=130, height=450, width=630)
+
+       label1 = Label(frame_input2, text="Register Here", font=('impact', 32, 'bold'), fg="black", bg='white')
+       label1.place(x=45, y=20)
+
+       # NAME FIELD
+       label2 = Label(frame_input2, text="Name", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label2.place(x=30, y=95)
+       self.entry = Entry(frame_input2, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.entry.place(x=30, y=145, width=270, height=35)
+
+       # PASSWORD FIELD
+       label3 = Label(frame_input2, text="Password", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label3.place(x=30, y=195)
+       self.entry2 = Entry(frame_input2, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.entry2.place(x=30, y=245, width=270, height=35)
+
+       # EMAIL FIELD
+       label4 = Label(frame_input2, text="Email-id", font=("Goudy old style", 20, "bold"), fg='orangered', bg='white')
+       label4.place(x=330, y=95)
+       self.entry3 = Entry(frame_input2, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.entry3.place(x=330, y=145, width=270, height=35)
+
+       # CONFIRM PASSWORD FIELD
+       label5 = Label(frame_input2, text="Confirm Password", font=("Goudy old style", 20, "bold"), fg='orangered',
+                      bg='white')
+       label5.place(x=330, y=195)
+       self.entry4 = Entry(frame_input2, font=("times new roman", 15, "bold"), bg='lightgray')
+       self.entry4.place(x=330, y=245, width=270, height=35)
+
+       # REGISTER BUTTON
+       btn2 = Button(frame_input2, command=self.register, text="Register", cursor="hand2", font=("times new roman", 15),
+                     fg="white", bg="orangered", bd=0, width=15, height=1)
+       btn2.place(x=230, y=340)
+
+       # LOGIN BUTTON
+       btn3 = Button(frame_input2, command=self.loginform, text="Already Registered?", cursor="hand2",
+                     font=("calibri", 12), bg='white', fg="black", bd=0)
+       btn3.place(x=250, y=380)
+
+   def register(self):
+       if self.entry.get() == "" or self.entry2.get() == "" or self.entry3.get() == "" or self.entry4.get() == "":
+           messagebox.showerror("Error", "All Fields Are Required", parent=self.root)
+          
+          
+       elif self.entry2.get() != self.entry4.get():
+           messagebox.showerror("Error", "Password and Confirm Password Should Be Same", parent=self.root)
+
+       else:
+           try:
+               con = pymysql.connect(host="localhost", user="root", password="shiset16sam@",
+                                     database="product1") 
+               cur = con.cursor()
+               cur.execute("select * from register where emailid=%s", self.entry3.get())
+               row = cur.fetchone()
+               if row != None:
+                   messagebox.showerror("Error", "User already Exist,Please try with another Email", parent=self.root)
+                   self.regclear()
+                   self.entry.focus()
+               else:
+                   cur.execute("insert into register values(%s,%s,%s,%s)",
+                               (self.entry.get(), self.entry3.get(), self.entry2.get(), self.entry4.get()))
+                   con.commit()
+                   con.close()
+                   messagebox.showinfo("Success", "Register Succesfull", parent=self.root)
+                   self.regclear()
+           except Exception as es:
+               messagebox.showerror("Error", f"Error due to:{str(es)}", parent=self.root)
+
+   def admin(self):
+       def mobile():
+           mycursor.execute("SELECT * FROM MOBILE")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult,
+                          headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA", "PRICE"],
+                          tablefmt='psql'))
+
+       def tablet():
+           mycursor.execute("select * from tablet")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION", "OS",
+                                             "PROCESSOR"], tablefmt='psql'))
+
+       def laptop():
+           mycursor.execute("select * from laptop")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult,
+                          headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR", "GRAPHICS",
+                                   "PRICE", "RATINGS"], tablefmt='psql'))
+
+       def camera():
+           mycursor.execute("select * from camera")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS", "EFFECTOVE PIXELS",
+                                             "MODEL_NUMBER", "DISPLAY_RESOLUTION", "DIGITAL_ZOOM"], tablefmt='psql'))
+
+       def television():
+           mycursor.execute("select * from television")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult,
+                          headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE", "WEIGHT_kg", "OS"],
+                          tablefmt='psql'))
+
+       # ------ADMIN FUNCTIONS-------------
+
+       # -----ADDING NEW CATEGORY---------
+
+       def add_cat():
+           cat = input("Enter the name of category you want to add: ").lower()
+           cat_1 = cat.upper()
+           ex = "INSERT INTO new_cat (new) VALUES ('{}')".format(cat_1)
+           ex_1 = "INSERT INTO cat (PRODUCTS) VALUES ('{}')".format(cat_1)
+           mycursor.execute(ex)
+           mycursor.execute(ex_1)
+           mycon.commit()
+           try:
+               query = """CREATE TABLE `{tab}`(`ID` VARCHAR(200) NOT NULL, PRIMARY KEY(`ID`), UNIQUE INDEX `ID_UNIQUE`(`ID` ASC) VISIBLE)""".format(
+                   tab=cat)
+               mycursor.execute(query)
+               mycon.commit()
+               N = int(input("Enter the number of field name you want to add: "))
+               L = []
+               for i in range(N):
+                   spec = (input("Enter the name of field name: ")).upper()
+                   L.append(spec)
+                   x = """ALTER TABLE {tab} ADD {leng} TEXT(100)""".format(tab=cat, leng=spec)
+                   mycursor.execute(x)
+               mycon.commit()
+               a = input("Do you want to add records?(Y/N) ")
+               if a.lower() == 'y':
+                   try:
+                       F = int(input("How many records you want to add?: "))
+                       i = 0
+                       for i in range(F):
+                           z = input("Enter ID to insert records: ")
+                           v = "INSERT INTO {tab} (ID) VALUES ('{}')".format(z, tab=cat)
+                           mycursor.execute(v)
+                           mycon.commit()
+
+                           j = 0
+                           for j in range(len(L)):
+                               print("Enter value of", L[j], ":")
+                               q = input().upper()
+                               query = "UPDATE {tab} set {sea}='%s' WHERE ID=%s".format(tab=cat, sea=L[j]) % (q, z)
+                               mycursor.execute(query)
+                               mycon.commit()
+                               
+                       print("Category Successfully Created with records")
+                       
+                   except:
+                       print("OOPS !! Invalid Input...")
+
+               else:
+                   print("Category Successfully created")
+           except:
+               print("ERROR")
+               '''q1 = "drop table {tab}".format(tab=cat)
+               mycursor.execute(q1)
+               mycon.commit()'''
+               add_cat()
+
+       # ----------DELETING CATEGORY-------------
+
+       def del_cat():
+           try:
+               q = "select * from cat"
+               mycursor.execute(q)
+               data = mycursor.fetchall()
+
+               print(tabulate(data, headers=["PRODUCTS"], tablefmt='psql'))
+               cat = input("Enter the name of category you want to delete: ")
+               query = "DROP TABLE {tab} ".format(tab=cat)
+               mycursor.execute(query)
+               mycon.commit()
+               print("Category successfully deleted")
+               return
+           except:
+               print("Category doesn't exists.")
+               del_cat()
+               
+       #------------DISPLAYING NEW CATEGORIES--------
+       def disp_cat():
+           q = "select * from new_cat"
+           mycursor.execute(q)
+           data = mycursor.fetchall()
+
+           print(tabulate(data, headers=["NEW PRODUCTS"], tablefmt='psql'))
+           x = input("Enter the name of category you want to see? ").lower()
+           query = "SELECT * FROM {tab}".format(tab=x)
+           mycursor.execute(query)
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, tablefmt='psql'))
+
+
+       # ---------------FORMATTING----------------
+       def mob_result_disp(data1):
+           ID, BRAND, MODEL, RAM_GB, ROM_GB, DISPLAY_SIZE, CAMERA, PRICE = data1
+           print("{:<5} {:<10} {:<25} {:<8} {:<8} {:<15} {:<48} {:<10}".format(ID, BRAND, MODEL, RAM_GB, ROM_GB,
+                                                                               DISPLAY_SIZE,
+                                                                               CAMERA, PRICE))
+
+       def tab_result_disp(data1):
+           ID, BRAND, MODEL, PRICE, SCREEN_SIZE, ROM, RESOLUTION, OS, PROCESSOR = data1
+           print(
+               "{:<5} {:<12} {:<55} {:<10} {:<13} {:<4} {:<18} {:<15} {:<18}".format(ID, BRAND, MODEL, PRICE,
+                                                                                     SCREEN_SIZE, ROM,
+                                                                                     RESOLUTION, OS, PROCESSOR))
+
+       def lap_result_disp(data1):
+           ID, BRAND, MODEL, RAM_GB, DISK_GB, DISPLAY_SIZE, PROCESSOR, GRAPHICS, PRICE, RATINGS = data1
+           print(
+               "{:<5} {:<10} {:<38} {:<7} {:<25} {:<15} {:<25} {:<35} {:<10} {:<10}".format(ID, BRAND, MODEL, RAM_GB,
+                                                                                            DISK_GB,
+                                                                                            DISPLAY_SIZE, PROCESSOR,
+                                                                                            GRAPHICS,
+                                                                                            PRICE, RATINGS))
+
+       def cam_result_disp(data1):
+           ID, BRAND, PRICE, MODEL, TYPE, DIMENSIONS, EFFECTIVE_PIXELS, MODEL_NUMBER, DISPLAY_RESOLUTION, DIGITAL_ZOOM = data1
+           print("{:<5} {:<12} {:<10} {:<20} {:<15} {:<25} {:<20} {:<15} {:<25} {:<15}".format(ID, BRAND, PRICE, MODEL,
+                                                                                               TYPE,
+                                                                                               DIMENSIONS,
+                                                                                               EFFECTIVE_PIXELS,
+                                                                                               MODEL_NUMBER,
+                                                                                               DISPLAY_RESOLUTION,
+                                                                                               DIGITAL_ZOOM))
+
+       def tel_result_disp(data1):
+           ID, BRAND, MODEL, RESOLUTION, DISPLAY_SIZE, PRICE, WEIGHT_kg, OS = data1
+           print("{:<5} {:<20} {:<60} {:<12} {:<15} {:<10} {:<15} {:<12}".format(ID, BRAND, MODEL, RESOLUTION,
+                                                                                 DISPLAY_SIZE,
+                                                                                 PRICE, WEIGHT_kg, OS))
+
+       # -------------MOBILE FILTERS---------------------
+       def filter_mob():
+           print("\nTo add filter for BRAND, Select 1")
+           print("To add filter for ROM, Select 2")
+           print("To add filter for RAM, Select 3")
+           print("To add filter for PRICE, Select 4")
+           L = []
+           N = int(input("\nHow Many filters do you want to add (1,2,3,4): "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter BRAND Name : ")
+                   query = "select * from mobile where BRAND='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+
+                   print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                                 "PRICE"], tablefmt='psql'))
+
+               elif i == 2:
+                   rom = input("\nEnter ROM Size : ")
+                   query = "select * from mobile where ROM_GB='%s'" % (rom.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+
+                   print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                                 "PRICE"], tablefmt='psql'))
+               elif i == 3:
+                   ram = input("\nEnter RAM Size : ")
+                   query = "select * from mobile where RAM_GB='%s'" % (ram.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+
+                   print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                                 "PRICE"], tablefmt='psql'))
+               elif i == 4:
+                   min_price = int(input("\nEnter Minimum PRICE : "))
+                   max_price = int(input("Enter Maximum PRICE : "))
+                   query = "select * from mobile where PRICE between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   if len(data) == 0:
+                       print("No match found")
+                   else:
+
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"],
+                                      tablefmt='psql'))
+
+       # ---------------TABLET FILTERS--------------
+
+       def filter_tab():
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for SCREEN Size select 2")
+           print("To add filter for STORAGE Size select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("\nHow many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from tablet where BRAND='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION", "OS",
+                                           "PROCESSOR"], tablefmt='psql'))
+
+               elif i == 2:
+                   scr_size = input("\nEnter Screen Size : ")
+                   query = "select * from tablet where SCREEN_SIZE='%s'" % (scr_size)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION", "OS",
+                                           "PROCESSOR"], tablefmt='psql'))
+
+               elif i == 3:
+                   storage = input("\nEnter Storage Size : ")
+                   query = "select * from tablet where ROM='%s'" % (storage)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION", "OS",
+                                           "PROCESSOR"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from tablet where PRICE between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION", "OS",
+                                           "PROCESSOR"], tablefmt='psql'))
+
+       # --------------LAPTOP FILTERS------------------
+
+       def filter_lap():
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for SCREEN Size select 2")
+           print("To add filter for STORGAE Size select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("\nHow many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from laptop where brand='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                           "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+               elif i == 2:
+                   scr_size = input("\nEnter Screen Size : ")
+                   query = "select * from laptop where DISPLAY_SIZE='%s'" % (scr_size)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                           "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+               elif i == 3:
+                   storage = input("\nEnter Storage Size : ")
+                   query = "select * from laptop where DISC_GB='%s'" % (storage)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                           "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from laptop where price between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                           "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+       # ----------------CAMERA FILTERS------------------
+       def filter_cam():
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for PIXEL select 2")
+           print("To add filter for ZOOM select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("\nHow many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from camera where brand='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS", "EFFECTOVE PIXELS",
+                                           "MODEL_NUMBER", "DISPLAY_RESOLUTION", "DIGITAL_ZOOM"], tablefmt='psql'))
+
+               elif i == 2:
+                   pixel = input("\nEnter Pixel : ")
+                   query = "select * from camera where effective_pixels='%s'" % (pixel)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS", "EFFECTOVE PIXELS",
+                                           "MODEL_NUMBER", "DISPLAY_RESOLUTION", "DIGITAL_ZOOM"], tablefmt='psql'))
+
+               elif i == 3:
+                   zoom = input("\nEnter Zoom : ")
+                   query = "select * from camera where DIGITAL_ZOOM='%s'" % (zoom.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS", "EFFECTOVE PIXELS",
+                                           "MODEL_NUMBER", "DISPLAY_RESOLUTION", "DIGITAL_ZOOM"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from camera where price between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS", "EFFECTOVE PIXELS",
+                                           "MODEL_NUMBER", "DISPLAY_RESOLUTION", "DIGITAL_ZOOM"], tablefmt='psql'))
+
+       # -----------------TELEVISION FILTERS------------------
+
+       def filter_tel():
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for DISPLAY Size select 2")
+           print("To add filter for RESOLUTION select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("how many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from television where brand='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE", "WEIGHT_kg",
+                                           "OS"], tablefmt='psql'))
+
+               elif i == 2:
+                   scr_size = input("\nEnter Screen Size : ")
+                   query = "select * from television where DISPLAY_SIZE='%s'" % (scr_size)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE", "WEIGHT_kg",
+                                           "OS"], tablefmt='psql'))
+
+               elif i == 3:
+                   resolution = input("\nEnter Resolution : ")
+                   query = "select * from television where resolution='%s'" % (resolution.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE", "WEIGHT_kg",
+                                           "OS"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from television where price between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data,
+                                  headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE", "WEIGHT_kg",
+                                           "OS"], tablefmt='psql'))
+
+       # -------------------COMPARING CATEGORIES--------------------
+
+       def mob_compare():
+           ncomp_mob = int(input("\nEnter how many mobiles do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_mob):
+               mob_ID = int(input("\nEnter ID to compare: "))
+               L.append(mob_ID)
+           print("\n{:<5} {:<10} {:<25} {:<8} {:<8} {:<15} {:<48} {:<10} ".format("ID", "BRAND", "MODEL", "RAM_GB",
+                                                                                  "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                                                                  "PRICE"))
+           for i in L:
+               query = "select * from mobile where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   mob_result_disp(row)
+
+       def tab_compare():
+           ncomp_tab = int(input("\nEnter how many tablets do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_tab):
+               tab_ID = int(input("\nEnter ID to compare: "))
+               L.append(tab_ID)
+           print(
+               "\n{:<5} {:<12} {:<55} {:<10} {:<13} {:<4} {:<18} {:<15} {:<18}".format("ID", "BRAND", "MODEL", "PRICE",
+                                                                                       "SCREEN_SIZE", "ROM",
+                                                                                       "RESOLUTION", "OS", "PROCESSOR"))
+           for i in L:
+               query = "select * from tablet where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   tab_result_disp(row)
+
+       def lap_compare():
+           ncomp_lap = int(input("\nEnter how many laptops do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_lap):
+               lap_ID = int(input("\nEnter ID to compare: "))
+               L.append(lap_ID)
+           print("\n{:<5} {:<10} {:<38} {:<7} {:<25} {:<15} {:<25} {:<35} {:<10} {:<10}".format("ID", "BRAND", "MODEL",
+                                                                                                "RAM_GB", "DISK_GB",
+                                                                                                "DISPLAY_SIZE",
+                                                                                                "PROCESSOR", "GRAPHICS",
+                                                                                                "PRICE", "RATINGS"))
+           for i in L:
+               query = "select * from laptop where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   lap_result_disp(row)
+
+       def cam_compare():
+           ncomp_cam = int(input("\nEnter how many camera do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_cam):
+               cam_ID = int(input("\nEnter ID to compare: "))
+               L.append(cam_ID)
+           print(
+               "\n{:<5} {:<12} {:<10} {:<20} {:<15} {:<25} {:<20} {:<15} {:<25} {:<15}".format("ID", "BRAND", "PRICE",
+                                                                                               "MODEL",
+                                                                                               "TYPE", "DIMENSIONS",
+                                                                                               "EFFECTIVE_PIXELS",
+                                                                                               "MODEL_NUMBER",
+                                                                                               "DISPLAY_RESOLUTION",
+                                                                                               "DIGITAL_ZOOM"))
+           for i in L:
+               query = "select * from camera where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   cam_result_disp(row)
+
+       def tel_compare():
+           ncomp_tel = int(input("\nEnter how many televisions do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_tel):
+               tel_ID = int(input("\nEnter ID to compare: "))
+               L.append(tel_ID)
+           print("\n{:<5} {:<20} {:<60} {:<12} {:<15} {:<10} {:<15} {:<12}".format("ID", "BRAND", "MODEL", "RESOLUTION",
+                                                                                   "DISPLAY_SIZE", "PRICE", "WEIGHT_kg",
+                                                                                   "OS"))
+           for i in L:
+               query = "select * from television where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   tel_result_disp(row)
+
+       # -----------SORTING TABLES ----------------------
+       def mob_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for ROM, Select 2")
+           print("To sort by for RAM, Select 3")
+           print("To sort by for PRICE, Select 4")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4): "))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? : ")
+                   if x == "1":
+                       query = "select * from mobile order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in ROM? : ")
+                   if x == "1":
+                       query = "select * from mobile order by ROM_GB"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by ROM_GB DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in RAM? : ")
+                   if x == "1":
+                       query = "select * from mobile order by RAM_GB"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by RAM_GB DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? : ")
+                   if x == "1":
+                       query = "select * from mobile order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   mob_sort()
+
+       def tab_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for SCREEN SIZE, Select 2")
+           print("To sort by for STORAGE, Select 3")
+           print("To sort by for PRICE, Select 4")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4): "))
+           for i in range(N):
+               x = int(input("Select Category:"))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? : ")
+                   if x == "1":
+                       query = "select * from tablet order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in SCREEN SIZE? : ")
+                   if x == "1":
+                       query = "select * from tablet order by SCREEN_SIZE"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by SCREEN__SIZE DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+
+
+               elif i == 3:
+                   x = input("Do you want in Ascending(1) or Descending(2) order in STORAGE? : \n")
+                   if x == "1":
+                       query = "select * from tablet order by ROM"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by ROM DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? : ")
+                   if x == "1":
+                       query = "select * from tablet order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   tab_sort()
+
+       def lap_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for SCREEN SIZE, Select 2")
+           print("To sort by for STORAGE, Select 3")
+           print("To sort by for RATINGS, Select 4")
+           print("To sort by for PRICE, Select 5")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4,5): "))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? : ")
+                   if x == "1":
+                       query = "select * from laptop order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in SCREEN SIZE? : ")
+                   if x == "1":
+                       query = "select * from laptop order by DISPLAY_SIZE"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by DISPLAY_SIZE DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in STORAGE? :")
+                   if x == "1":
+                       query = "select * from laptop order by DISK_GB"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by DISK_GB DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("Incorrect Option")
+                       lap_sort()
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in RATINGS? : ")
+                   if x == "1":
+                       query = "select * from laptop order by RATINGS"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by RATINGS DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+
+               elif i == 5:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? : ")
+                   if x == "1":
+                       query = "select * from laptop order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   lap_sort()
+
+       def cam_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for EFFECTOVE PIXELS, Select 2")
+           print("To sort by for DIMENSIONS, Select 3")
+           print("To sort by for DIGITAL ZOOM, Select 4")
+           print("To sort by for PRICE, Select 5")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4,5):"))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? :")
+                   if x == "1":
+                       query = "select * from camera order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("Incorrect Option")
+                       cam_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in EFFECTOVE PIXELS? : ")
+                   if x == "1":
+                       query = "select * from camera order by EFFECTOVE PIXELS"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by EFFECTOVE PIXELS DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in DIMENSIONS? : ")
+                   if x == "1":
+                       query = "select * from camera order by DIMENSIONS"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by DIMENSIONS DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in DIGITAL ZOOM? : ")
+                   if x == "1":
+                       query = "select * from camera order by DIGITAL_ZOOMM"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by DIGITAL_ZOOM DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+
+               elif i == 5:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? :")
+                   if x == "1":
+                       query = "select * from camera order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   cam_sort()
+
+       def tel_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for RESOLUTION, Select 2")
+           print("To sort by for WEIGHT_kg, Select 3")
+           print("To sort by for DISPLAY_SIZE, Select 4")
+           print("To sort by for PRICE, Select 5")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4,5):"))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? :")
+                   if x == "1":
+                       query = "select * from television order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("Incorrect Option")
+                       tel_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in RESOLUTION? : ")
+                   if x == "1":
+                       query = "select * from television order by RESOLUTION"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by RESOLUTION DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in WEIGHT? : ")
+                   if x == "1":
+                       query = "select * from television order by WEIGHT"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by WEIGHT DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in DISPLAY SIZE ? : ")
+                   if x == "1":
+                       query = "select * from television order by DISPLAY_SIZE"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by DISPLAY_SIZE DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+
+               elif i == 5:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? :")
+                   if x == "1":
+                       query = "select * from television order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   tel_sort()
+
+
+
+
+
+
+
+       # ---------------CATEGORY MENU---------------
+
+       def add_mob():
+           x = int(input("Enter number of records you want: "))
+           for i in range(x):
+               a = int(input("Enter ID:"))
+               b = input("Enter BRAND:")
+               c = input("Enter MODEL:")
+               d = input("Enter RAM_GB:")
+               e = input("Enter ROM_GB:")
+               f = input("Enter DISPLAY:")
+               g = input("Enter CAMERA:")
+               h = input("Enter PRICE:")
+
+               query = "INSERT INTO mobile (ID, BRAND, MODEL, RAM_GB, ROM_GB, DISPLAY_SIZE, CAMERA, PRICE) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+                   a, b, c, d, e, f, g, h)
+               mycursor.execute(query)
+
+               mycon.commit()
+
+       def del_mob():
+           a = int(input("Enter the number of records to delete: "))
+           for i in range(a):
+               x = int(input("Enter ID to delete: "))
+               query = "DELETE FROM mobile WHERE ID=%s "
+               mycursor.execute(query, (x,))
+               mycon.commit()
+
+       def up_mob():
+           a = int(input("Enter the number of records to update: "))
+           for i in range(a):
+               x = input("Enter the specification to update: ")
+               if x.upper() == 'BRAND':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set BRAND=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'MODEL':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set MODEL=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'RAM_GB':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set RAM_GB=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'ROM_GB':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set ROM_GB=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DISPLAY_SIZE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set DISPLAY_SIZE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'CAMERA':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set CAMERA=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PRICE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE mobile set PRICE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               else:
+                   print("WRONG INPUT")
+                   up_mob()
+
+       def function_menu_mob():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for ADDING records ")
+           print("select 5 for DELETING records")
+           print("select 6 for UPDATE records")
+           print("select 7 for BACK TO MAIN MENU\n")
+
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               mob_sort()
+
+           elif opt == 2:
+               filter_mob()
+
+           elif opt == 3:
+               mob_compare()
+
+           elif opt == 7:
+               main_menu()
+
+           elif opt == 4:
+               add_mob()
+
+           elif opt == 5:
+               del_mob()
+
+           elif opt == 6:
+               up_mob()
+
+           else:
+               print("WRONG INPUT")
+               function_menu_mob()
+
+       def add_tab():
+           x = int(input("Enter number of records you want: "))
+           for i in range(x):
+               a = int(input("Enter ID:"))
+               b = input("Enter BRAND:")
+               c = input("Enter MODEL:")
+               d = input("Enter PRICE:")
+               e = input("Enter SCREEN_SIZE:")
+               f = input("Enter ROM:")
+               g = input("Enter RESOLUTION:")
+               h = input("Enter OS:")
+               i = input("Enter PROCESSOR: ")
+
+               query = "INSERT INTO tablet (ID, BRAND, MODEL, PRICE, SCREEN_SIZE, ROM, RESOLUTION, OS, PROCESSOR) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+                   a, b, c, d, e, f, g, h, i)
+               mycursor.execute(query)
+
+               mycon.commit()
+
+       def del_tab():
+           a = int(input("Enter the number of records to delete: "))
+           for i in range(a):
+               x = int(input("Enter ID to delete: "))
+               query = "DELETE FROM tablet WHERE ID=%s "
+               mycursor.execute(query, (x,))
+               mycon.commit()
+
+       def up_tab():
+           a = int(input("Enter the number of records to update: "))
+           for i in range(a):
+               x = input("Enter the specification to update: ")
+               if x.upper() == 'BRAND':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set BRAND=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'MODEL':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set MODEL=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PRICE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set PRICE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'SCREEN_SIZE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set SCREEN_SIZE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'ROM':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set ROM=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'RESOLUTION':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set RESOLUTION=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'OS':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set OS=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PROCESSOR':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE tablet set PROCESSOR=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               else:
+                   print("WRONG INPUT")
+                   up_tab()
+
+       def function_menu_tab():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for ADDING records ")
+           print("select 5 for DELETING records")
+           print("select 6 for UPDATE records")
+           print("select 7 for BACK TO MAIN MENU\n")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               tab_sort()
+
+           elif opt == 2:
+               filter_tab()
+
+           elif opt == 3:
+               tab_compare()
+
+           elif opt == 7:
+               main_menu()
+
+           elif opt == 4:
+               add_tab()
+
+           elif opt == 5:
+               del_tab()
+
+           elif opt == 6:
+               up_tab()
+
+           else:
+               print("WRONG INPUT")
+               function_menu_tab()
+
+       def add_lap():
+           x = int(input("Enter number of records you want: "))
+           for i in range(x):
+               a = int(input("Enter ID:"))
+               b = input("Enter BRAND:")
+               c = input("Enter MODEL:")
+               d = input("Enter RAM_GB:")
+               e = input("Enter DISK_GB:")
+               f = input("Enter DISPLAY_SIZE:")
+               g = input("Enter PROCESSOR:")
+               h = input("Enter GRAPHICS:")
+               i = input("Enter PRICE: ")
+               j = input("Enter RATINGS(OUT OF 5)")
+
+               query = "INSERT INTO laptop (ID, BRAND, MODEL, RAM_GB, DISK_GB, DISPLAY_SIZE, PROCESSOR, GRAPHICS, PRICE, RATINGS) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+                   a, b, c, d, e, f, g, h, i, j)
+               mycursor.execute(query)
+
+               mycon.commit()
+
+       def del_lap():
+           a = int(input("Enter the number of records to delete: "))
+           for i in range(a):
+               x = int(input("Enter ID to delete: "))
+               query = "DELETE FROM laptop WHERE ID=%s "
+               mycursor.execute(query, (x,))
+               mycon.commit()
+
+       def up_lap():
+           a = int(input("Enter the number of records to update: "))
+           for i in range(a):
+               x = input("Enter the specification to update: ")
+               if x.upper() == 'BRAND':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set BRAND=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'MODEL':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set MODEL=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'RAM_GB':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set RAM_GB=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DISK_GB':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set DISK_GB=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DISPLAY_SIZE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set DISPLAY_SIZE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PROCESSOR':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set PROCESSOR=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'GRAPHICS':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set GRAPHICS=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PRICE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set PRICE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'RATINGS':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE laptop set RATINGS=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               else:
+                   print("WRONG INPUT")
+                   up_lap()
+
+       def function_menu_lap():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for ADDING records ")
+           print("select 5 for DELETING records")
+           print("select 6 for UPDATE records")
+           print("select 7 for BACK TO MAIN MENU\n")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               lap_sort()
+
+           elif opt == 2:
+               filter_lap()
+
+           elif opt == 3:
+               lap_compare()
+
+           elif opt == 7:
+               main_menu()
+
+           elif opt == 4:
+               add_lap()
+
+           elif opt == 5:
+               del_lap()
+
+           elif opt == 6:
+               up_lap()
+
+           else:
+               print("WRONG INPUT")
+               function_menu_lap()
+
+       def add_cam():
+           x = int(input("Enter number of records you want: "))
+           for i in range(x):
+               a = int(input("Enter ID:"))
+               b = input("Enter BRAND:")
+               c = input("Enter PRICE:")
+               d = input("Enter MODEL:")
+               e = input("Enter TYPE:")
+               f = input("Enter DIMENSIONS:")
+               g = input("Enter EFFECTIVE_PIXELS:")
+               h = input("Enter MODEL_NUMBER :")
+               i = input("Enter DISPLAY_RESOLUTION: ")
+               j = input("Enter DIGITAL_ZOOM")
+
+               query = "INSERT INTO camera (ID, BRAND, PRICE , MODEL, TYPE, DIMENSIONS, EFFECTIVE_PIXELS, MODEL_NUMBER, DISPLAY_RESOLUTION, DIGITAL_ZOOM) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+                   a, b, c, d, e, f, g, h, i, j)
+               mycursor.execute(query)
+
+               mycon.commit()
+
+       def del_cam():
+           a = int(input("Enter the number of records to delete: "))
+           for i in range(a):
+               x = int(input("Enter ID to delete: "))
+               query = "DELETE FROM camera WHERE ID=%s "
+               mycursor.execute(query, (x,))
+               mycon.commit()
+
+       def up_cam():
+           a = int(input("Enter the number of records to update: "))
+           for i in range(a):
+               x = input("Enter the specification to update: ")
+               if x.upper() == 'BRAND':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set BRAND=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PRICE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set PRICE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'MODEL':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set MODEL=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'TYPE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set TYPE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DIMENSIONS':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set DIMENSIONS=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'EFFECTIVE_PIXELS':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set EFFECTIVE_PIXELS=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'MODEL_NUMBER':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set MODEL_NUMBER=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DISPLAY_RESOLUTION':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set DISPLAY_RESOLUTION=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DIGITAL_ZOOM':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE camera set DIGITAL_ZOOM=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               else:
+                   print("WRONG INPUT")
+                   up_cam()
+
+       def function_menu_cam():
+           print("\nselect 1 for SORT")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for ADDING records ")
+           print("select 5 for DELETING records")
+           print("select 6 for UPDATE records")
+           print("select 7 for BACK TO MAIN MENU\n")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               cam_sort()
+
+           elif opt == 2:
+               filter_cam()
+
+           elif opt == 3:
+               cam_compare()
+
+           elif opt == 7:
+               main_menu()
+
+           elif opt == 4:
+               add_cam()
+
+           elif opt == 5:
+               del_cam()
+
+           elif opt == 6:
+               up_cam()
+
+           else:
+               print("WRONG INPUT")
+               function_menu_cam()
+
+       def add_tel():
+           x = int(input("Enter number of records you want: "))
+           for i in range(x):
+               a = int(input("Enter ID:"))
+               b = input("Enter BRAND:")
+               c = input("Enter MODEL:")
+               d = input("Enter RESOLUTION:")
+               e = input("Enter DISPLAY_SIZE:")
+               f = input("Enter PRICE:")
+               g = input("Enter WEIGHT_KG:")
+               h = input("Enter OS:")
+
+               query = "INSERT INTO television (ID, BRAND, MODEL, RESOLUTION ,DISPLAY_SIZE ,PRICE, WEIGHT_KG, OS) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+                   a, b, c, d, e, f, g, h)
+               mycursor.execute(query)
+
+               mycon.commit()
+
+       def del_tel():
+           a = int(input("Enter the number of records to delete: "))
+           for i in range(a):
+               x = int(input("Enter ID to delete: "))
+               query = "DELETE FROM television WHERE ID=%s "
+               mycursor.execute(query, (x,))
+               mycon.commit()
+
+       def up_tel():
+           a = int(input("Enter the number of records to update: "))
+           for i in range(a):
+               x = input("Enter the specification to update: ")
+               if x.upper() == 'BRAND':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set BRAND=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'MODEL':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set MODEL=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'RESOLUTION':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set RESOLUTION=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'DISPLAY_SIZE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set DISPLAY_SIZE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'PRICE':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set PRICE=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'WEIGHT_KG':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set WEIGHT_KG=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               elif x.upper() == 'OS':
+                   y = int(input("Enter ID to update: "))
+                   y_1 = input("Enter the updated value: ")
+                   query = "UPDATE television set OS=%s WHERE ID= %s"
+                   input_1 = (y_1.upper(), y)
+                   mycursor.execute(query, input_1)
+                   mycon.commit()
+
+               else:
+                   print("WRONG INPUT")
+                   up_tel()
+
+       def function_menu_tel():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for ADDING records ")
+           print("select 5 for DELETING records")
+           print("select 6 for UPDATE records")
+           print("select 7 for BACK TO MAIN MENU\n")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               tel_sort()
+
+           elif opt == 2:
+               filter_tel()
+
+           elif opt == 3:
+               tel_compare()
+
+           elif opt == 7:
+               main_menu()
+
+           elif opt == 4:
+               add_tel()
+
+           elif opt == 5:
+               del_tel()
+
+           elif opt == 6:
+               up_tel()
+
+           else:
+               print("WRONG INPUT")
+               function_menu_tel()
+
+       #-----------------MAIN MENU----------------
+       def thankyou_msg():
+           print("\n*****************************************************************************")
+           print("*************** THANK YOU FOR VISITING COMPARE PRODUCT SYSTEM ***************")
+           print("*****************************************************************************")
+
+
+       def main_menu():
+           print("\n************  MOBILE (1)          ************")
+           print("************  TABLET (2)          ************")
+           print("************  LAPTOP (3)          ************")
+           print("************  CAMERA (4)          ************")
+           print("************  TELEVISION (5)      ************")
+           print("************  NEW PRODUCTS (6)    ************")
+           print("************  ADD CATEGORY (7)    ************")
+           print("************  DELETE CATEGORY (8) ************")
+           print("************  EXIT (0)            ************\n")
+
+           cat = int(input(("Select Option : ")))
+
+           if cat == 0:
+              thankyou_msg()
+              exit()
+
+           elif cat == 1:
+               mobile()
+               ans = input("\nDo you wish to continue with MOBILE? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_mob()
+                   ans = input("\nDo you wish to continue with MOBILE? (y/n) : ")
+
+           elif cat == 2:
+               tablet()
+               ans = input("\nDo you wish to continue with TABLET? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_tab()
+                   ans = input("\nDo you wish to continue with TABLET? (y/n) : ")
+
+           elif cat == 3:
+               laptop()
+               ans = input("\nDo you wish to continue with LAPTOP? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_lap()
+                   ans = input("\nDo you wish to continue with LAPTOP ? (y/n) : ")
+               
+           elif cat == 4:
+               camera()
+               ans = input("\nDo you wish to continue with CAMERA? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_cam()
+                   ans = input("\nDo you wish to continue with CAMERA? (y/n) : ")
+
+           elif cat == 5:
+               television()
+               ans = input("\nDo you wish to continue with TELEVISION? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_tel()
+                   ans = input("\nDo you wish to continue with TELEVISION? (y/n) : ")
+               
+           elif cat == 7:
+               add_cat()
+               ans = input("\nDo you wish to continue with ADD CATEGORY? (y/n) : ")
+               while ans.lower() == 'y':
+                   add_cat()
+                   ans = input("\nDo you wish to continue with ADD CATEGORY? (y/n) : ")
+               
+           elif cat == 8:
+               del_cat()
+               ans = input("\nDo you wish to continue with DELETE CATEGORY? (y/n) : ")
+               while ans.lower() == 'y':
+                   del_cat()
+                   ans = input("\nDo you wish to continue with DELETE CATEGORY? (y/n) : ")
+
+           elif cat == 6:
+               disp_cat()
+               ans = input("\nDo you wish to continue with DISPLAY NEW CATEGORY? (y/n) : ")
+               while ans.lower() == 'y':
+                   del_cat()
+                   ans = input("\nDo you wish to continue with DISPLAY NEW CATEGORY? (y/n) : ")
+               
+           else:
+               print("OOPS !! INVALID Input ...")               
+
+
+
+       #START OF PROGRAM
+       print("\n\n*************************************************************************")
+       print("***************** WELCOME ADMIN TO COMPARE PRODUCT SYSTEM *********************")
+       print("*************************************************************************")
+       
+       ans = 'y'
+       while ans.lower() == 'y':
+           main_menu()         
+       
+       #END OF PROGRAM
+
+
+
+
+   def appscreen(self):
+
+       # DISPLAY WHOLE TABLE
+       def mobile():
+           mycursor.execute("SELECT * FROM MOBILE")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID", "BRAND","MODEL", "RAM_GB","ROM_GB","DISPLAY_SIZE","CAMERA", "PRICE"], tablefmt='psql'))           
+
+       def tablet():
+           mycursor.execute("select * from tablet")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID","BRAND","MODEL","PRICE","SCREEN_SIZE","ROM","RESOLUTION","OS","PROCESSOR"], tablefmt='psql'))
+
+       def laptop():
+           mycursor.execute("select * from laptop")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID","BRAND","MODEL","RAM_GB","DISK_GB","DISPLAY_SIZE","PROCESSOR","GRAPHICS","PRICE","RATINGS"], tablefmt='psql'))
+
+       def camera():
+           mycursor.execute("select * from camera")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID","BRAND","PRICE","MODEL","TYPE","DIMENSIONS","EFFECTOVE PIXELS","MODEL_NUMBER","DISPLAY_RESOLUTION","DIGITAL_ZOOM"], tablefmt='psql'))
+
+       def television():
+           mycursor.execute("select * from television")
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, headers=["ID","BRAND","MODEL","RESOLUTION","DISPLAY_SIZE","PRICE","WEIGHT_kg","OS"], tablefmt='psql'))
+        
+
+       # DISPLAY WITH PROPER FORMATING
+
+       def mob_result_disp(data1):
+            ID,BRAND,MODEL,RAM_GB,ROM_GB,DISPLAY_SIZE,CAMERA,PRICE=data1
+            print ("{:<5} {:<10} {:<25} {:<8} {:<8} {:<15} {:<48} {:<10}".format(ID,BRAND,MODEL,RAM_GB,ROM_GB,DISPLAY_SIZE,CAMERA,PRICE))
+
+
+       def tab_result_disp(data1):       
+            ID,BRAND,MODEL,PRICE,SCREEN_SIZE,ROM,RESOLUTION,OS,PROCESSOR=data1
+            print ("{:<5} {:<12} {:<55} {:<10} {:<13} {:<4} {:<18} {:<15} {:<18}".format(ID,BRAND,MODEL,PRICE,SCREEN_SIZE,ROM,RESOLUTION,OS,PROCESSOR))
+
+
+       def lap_result_disp(data1):
+           ID, BRAND, MODEL, RAM_GB, DISK_GB, DISPLAY_SIZE, PROCESSOR, GRAPHICS, PRICE, RATINGS = data1
+           print("{:<5} {:<10} {:<38} {:<7} {:<25} {:<15} {:<25} {:<35} {:<10} {:<10}".format(ID, BRAND, MODEL, RAM_GB,DISK_GB, DISPLAY_SIZE,PROCESSOR, GRAPHICS,PRICE, RATINGS))
+
+
+       def cam_result_disp(data1):
+           ID, BRAND, PRICE, MODEL, TYPE, DIMENSIONS, EFFECTIVE_PIXELS, MODEL_NUMBER, DISPLAY_RESOLUTION, DIGITAL_ZOOM = data1
+           print("{:<5} {:<12} {:<10} {:<20} {:<15} {:<25} {:<20} {:<15} {:<25} {:<15}".format(ID, BRAND, PRICE, MODEL,TYPE, DIMENSIONS,EFFECTIVE_PIXELS,MODEL_NUMBER,DISPLAY_RESOLUTION,DIGITAL_ZOOM))
+
+
+       def tel_result_disp(data1):
+           ID, BRAND, MODEL, RESOLUTION, DISPLAY_SIZE, PRICE, WEIGHT_kg, OS = data1
+           print("{:<5} {:<20} {:<60} {:<12} {:<15} {:<10} {:<15} {:<12}".format(ID, BRAND, MODEL, RESOLUTION,DISPLAY_SIZE, PRICE, WEIGHT_kg, OS))
+
+
+       def disp_cat():
+           q = "select * from new_cat"
+           mycursor.execute(q)
+           data = mycursor.fetchall()
+
+           print(tabulate(data, headers=["NEW PRODUCTS"], tablefmt='psql'))
+           x = input("Enter the name of category you want to see? ").lower()
+           query = "SELECT * FROM {tab}".format(tab=x)
+           mycursor.execute(query)
+           myresult = mycursor.fetchall()
+
+           print(tabulate(myresult, tablefmt='psql'))
+
+
+
+
+
+       # ---------------MOBILE---------------
+       def filter_mob():
+
+           print("\nTo add filter for BRAND, Select 1")
+           print("To add filter for ROM, Select 2")
+           print("To add filter for RAM, Select 3")
+           print("To add filter for PRICE, Select 4")
+           L = []
+           N = int(input("\nHow Many filters do you want to add (1,2,3,4): "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter BRAND Name : ")
+                   query = "select * from mobile where BRAND='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   
+                   print(tabulate(data, headers=["ID", "BRAND","MODEL", "RAM_GB","ROM_GB","DISPLAY_SIZE","CAMERA", "PRICE"], tablefmt='psql'))
+
+               elif i == 2:
+                   rom = input("\nEnter ROM Size : ")
+                   query = "select * from mobile where ROM_GB='%s'" % (rom.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   
+                   print(tabulate(data, headers=["ID", "BRAND","MODEL", "RAM_GB","ROM_GB","DISPLAY_SIZE","CAMERA", "PRICE"], tablefmt='psql'))
+               elif i == 3:
+                   ram = input("\nEnter RAM Size : ")
+                   query = "select * from mobile where RAM_GB='%s'" % (ram.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   
+                   print(tabulate(data, headers=["ID", "BRAND","MODEL", "RAM_GB","ROM_GB","DISPLAY_SIZE","CAMERA", "PRICE"], tablefmt='psql'))
+               elif i == 4:
+                   min_price = int(input("\nEnter Minimum PRICE : "))
+                   max_price = int(input("Enter Maximum PRICE : "))
+                   query = "select * from mobile where PRICE between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(data)
+                   if len(data) == 0:
+                       print("No match found")
+                   else:
+                       
+                       print(tabulate(data, headers=["ID", "BRAND","MODEL", "RAM_GB","ROM_GB","DISPLAY_SIZE","CAMERA", "PRICE"], tablefmt='psql'))
+               else:
+                  print("Incorrect option")
+                  filter_mob()
+       # ---------------TABLET--------------
+
+       def filter_tab():
+
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for SCREEN Size select 2")
+           print("To add filter for STORAGE Size select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("\nHow many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from tablet where BRAND='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","PRICE","SCREEN_SIZE","ROM","RESOLUTION","OS","PROCESSOR"], tablefmt='psql'))
+
+               elif i == 2:
+                   scr_size = input("\nEnter Screen Size : ")
+                   query = "select * from tablet where SCREEN_SIZE='%s'" % (scr_size)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","PRICE","SCREEN_SIZE","ROM","RESOLUTION","OS","PROCESSOR"], tablefmt='psql'))
+
+               elif i == 3:
+                   storage = input("\nEnter Storage Size : ")
+                   query = "select * from tablet where ROM='%s'" % (storage)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","PRICE","SCREEN_SIZE","ROM","RESOLUTION","OS","PROCESSOR"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from tablet where PRICE between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","PRICE","SCREEN_SIZE","ROM","RESOLUTION","OS","PROCESSOR"], tablefmt='psql'))
+
+               else:
+                  print("Incorrect option")
+                  filter_tab()
+       # ---------------LAPTOP------------
+
+       def filter_lap():
+
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for SCREEN Size select 2")
+           print("To add filter for STORGAE Size select 3")
+           print("To sort by for RATINGS, Select 4")
+           print("To add filter for PRICE select 5")
+           L = []
+           N = int(input("\nHow many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from laptop where brand='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RAM_GB","DISK_GB","DISPLAY_SIZE","PROCESSOR","GRAPHICS","PRICE","RATINGS"], tablefmt='psql'))
+
+               elif i == 2:
+                   scr_size = input("\nEnter Screen Size : ")
+                   query = "select * from laptop where DISPLAY_SIZE='%s'" % (scr_size)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RAM_GB","DISK_GB","DISPLAY_SIZE","PROCESSOR","GRAPHICS","PRICE","RATINGS"], tablefmt='psql'))
+
+               elif i == 3:
+                   storage = input("\nEnter Storage Size : ")
+                   query = "select * from laptop where DISC_GB='%s'" % (storage)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RAM_GB","DISK_GB","DISPLAY_SIZE","PROCESSOR","GRAPHICS","PRICE","RATINGS"], tablefmt='psql'))
+                   
+               elif i == 4:
+                   min_rating = int(input("\nEnter minimum rating limit : "))
+                   max_rating = int(input("Enter maximum rating limit : "))
+                   query = "select * from laptop where ratings between '%s' and '%s'" % (min_rating, max_rating)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RAM_GB","DISK_GB","DISPLAY_SIZE","PROCESSOR","GRAPHICS","PRICE","RATINGS"], tablefmt='psql'))
+                   
+               elif i == 5:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from laptop where price between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RAM_GB","DISK_GB","DISPLAY_SIZE","PROCESSOR","GRAPHICS","PRICE","RATINGS"], tablefmt='psql'))
+               else:
+                  print("Incorrect option")
+                  filter_lap()
+                  
+       # ---------------CAMERA---------------
+
+       def filter_cam():
+
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for PIXEL select 2")
+           print("To add filter for ZOOM select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("\nHow many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from camera where brand='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","PRICE","MODEL","TYPE","DIMENSIONS","EFFECTOVE PIXELS","MODEL_NUMBER","DISPLAY_RESOLUTION","DIGITAL_ZOOM"], tablefmt='psql'))
+
+               elif i == 2:
+                   pixel = input("\nEnter Pixel : ")
+                   query = "select * from camera where effective_pixels='%s'" % (pixel)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","PRICE","MODEL","TYPE","DIMENSIONS","EFFECTOVE PIXELS","MODEL_NUMBER","DISPLAY_RESOLUTION","DIGITAL_ZOOM"], tablefmt='psql'))
+
+               elif i == 3:
+                   zoom = input("\nEnter Zoom : ")
+                   query = "select * from camera where DIGITAL_ZOOM='%s'" % (zoom.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","PRICE","MODEL","TYPE","DIMENSIONS","EFFECTOVE PIXELS","MODEL_NUMBER","DISPLAY_RESOLUTION","DIGITAL_ZOOM"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from camera where price between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","PRICE","MODEL","TYPE","DIMENSIONS","EFFECTOVE PIXELS","MODEL_NUMBER","DISPLAY_RESOLUTION","DIGITAL_ZOOM"], tablefmt='psql'))
+               else:
+                  print("Incorrect option")
+                  filter_cam()
+                  
+       # ---------------TELEVISION-------------
+
+       def filter_tel():
+
+           print("\nTo add filter for BRAND select 1")
+           print("To add filter for DISPLAY Size select 2")
+           print("To add filter for RESOLUTION select 3")
+           print("To add filter for PRICE select 4")
+           L = []
+           N = int(input("how many filters do you want to add : "))
+           for i in range(N):
+               x = int(input("Enter Filter to Add : "))
+               L.append(x)
+
+           for i in L:
+
+               if i == 1:
+                   brand = input("\nEnter Brand : ")
+                   query = "select * from television where brand='%s'" % (brand.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RESOLUTION","DISPLAY_SIZE","PRICE","WEIGHT_kg","OS"], tablefmt='psql'))
+
+               elif i == 2:
+                   scr_size = input("\nEnter Screen Size : ")
+                   query = "select * from television where DISPLAY_SIZE='%s'" % (scr_size)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RESOLUTION","DISPLAY_SIZE","PRICE","WEIGHT_kg","OS"], tablefmt='psql'))
+
+               elif i == 3:
+                   resolution = input("\nEnter Resolution : ")
+                   query = "select * from television where resolution='%s'" % (resolution.lower())
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RESOLUTION","DISPLAY_SIZE","PRICE","WEIGHT_kg","OS"], tablefmt='psql'))
+
+               elif i == 4:
+                   min_price = int(input("\nEnter minimum price limit : "))
+                   max_price = int(input("Enter maximum price limit : "))
+                   query = "select * from television where price between '%s' and '%s'" % (min_price, max_price)
+                   mycursor.execute(query)
+                   data = mycursor.fetchall()
+                   print(tabulate(data, headers=["ID","BRAND","MODEL","RESOLUTION","DISPLAY_SIZE","PRICE","WEIGHT_kg","OS"], tablefmt='psql'))
+               else:
+                  print("Incorrect option")
+                  filter_tel()
+          
+
+       # COMPARING DEVICES
+
+       def mob_compare():
+           ncomp_mob = int(input("\nEnter how many mobiles do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_mob):
+               mob_ID = int(input("\nEnter ID to compare: "))
+               L.append(mob_ID)
+           print("\n{:<5} {:<10} {:<25} {:<8} {:<8} {:<15} {:<48} {:<10} ".format("ID", "BRAND", "MODEL", "RAM_GB",
+                                                                                  "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                                                                  "PRICE"))
+           for i in L:
+               query = "select * from mobile where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   mob_result_disp(row)
+
+       def tab_compare():
+           ncomp_tab = int(input("\nEnter how many tablets do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_tab):
+               tab_ID = int(input("\nEnter ID to compare: "))
+               L.append(tab_ID)
+           print(
+               "\n{:<5} {:<12} {:<55} {:<10} {:<13} {:<4} {:<18} {:<15} {:<18}".format("ID", "BRAND", "MODEL", "PRICE",
+                                                                                       "SCREEN_SIZE", "ROM",
+                                                                                       "RESOLUTION", "OS", "PROCESSOR"))
+           for i in L:
+               query = "select * from tablet where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   tab_result_disp(row)
+
+       def lap_compare():
+           ncomp_lap = int(input("\nEnter how many laptops do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_lap):
+               lap_ID = int(input("\nEnter ID to compare: "))
+               L.append(lap_ID)
+           print("\n{:<5} {:<10} {:<38} {:<7} {:<25} {:<15} {:<25} {:<35} {:<10} {:<10}".format("ID", "BRAND", "MODEL",
+                                                                                                "RAM_GB", "DISK_GB",
+                                                                                                "DISPLAY_SIZE",
+                                                                                                "PROCESSOR", "GRAPHICS",
+                                                                                                "PRICE", "RATINGS"))
+           for i in L:
+               query = "select * from laptop where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   lap_result_disp(row)
+
+       def cam_compare():
+           ncomp_cam = int(input("\nEnter how many camera do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_cam):
+               cam_ID = int(input("\nEnter ID to compare: "))
+               L.append(cam_ID)
+           print("\n{:<5} {:<12} {:<10} {:<20} {:<15} {:<25} {:<20} {:<15} {:<25} {:<15}".format("ID", "BRAND", "PRICE",
+                                                                                                 "MODEL", "TYPE",
+                                                                                                 "DIMENSIONS",
+                                                                                                 "EFFECTIVE_PIXELS",
+                                                                                                 "MODEL_NUMBER",
+                                                                                                 "DISPLAY_RESOLUTION",
+                                                                                                 "DIGITAL_ZOOM"))
+           for i in L:
+               query = "select * from camera where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   cam_result_disp(row)
+
+       def tel_compare():
+           ncomp_tel = int(input("\nEnter how many televisions do you want to compare (max 3) : "))
+           L = []
+           for i in range(ncomp_tel):
+               tel_ID = int(input("\nEnter ID to compare: "))
+               L.append(tel_ID)
+           print("\n{:<5} {:<20} {:<60} {:<12} {:<15} {:<10} {:<15} {:<12}".format("ID", "BRAND", "MODEL", "RESOLUTION",
+                                                                                   "DISPLAY_SIZE", "PRICE", "WEIGHT_kg",
+                                                                                   "OS"))
+           for i in L:
+               query = "select * from television where ID='%s'" % (i)
+               mycursor.execute(query)
+               data = mycursor.fetchall()
+               for row in data:
+                   tel_result_disp(row)
+
+       #  --------------SORTING --------------
+
+       def mob_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for ROM, Select 2")
+           print("To sort by for RAM, Select 3")
+           print("To sort by for PRICE, Select 4")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4): "))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? : ")
+                   if x == "1":
+                       query = "select * from mobile order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in ROM? : ")
+                   if x == "1":
+                       query = "select * from mobile order by ROM_GB"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by ROM_GB DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in RAM? : ")
+                   if x == "1":
+                       query = "select * from mobile order by RAM_GB"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by RAM_GB DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? : ")
+                   if x == "1":
+                       query = "select * from mobile order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from mobile order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "ROM_GB", "DISPLAY_SIZE", "CAMERA",
+                                               "PRICE"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       mob_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   mob_sort()
+
+       def tab_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for SCREEN SIZE, Select 2")
+           print("To sort by for STORAGE, Select 3")
+           print("To sort by for PRICE, Select 4")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4): "))
+           for i in range(N):
+               x = int(input("Select Category:"))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? : ")
+                   if x == "1":
+                       query = "select * from tablet order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in SCREEN SIZE? : ")
+                   if x == "1":
+                       query = "select * from tablet order by SCREEN_SIZE"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by SCREEN__SIZE DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+
+
+               elif i == 3:
+                   x = input("Do you want in Ascending(1) or Descending(2) order in STORAGE? : \n")
+                   if x == "1":
+                       query = "select * from tablet order by ROM"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by ROM DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? : ")
+                   if x == "1":
+                       query = "select * from tablet order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from tablet order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "PRICE", "SCREEN_SIZE", "ROM", "RESOLUTION",
+                                               "OS", "PROCESSOR"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tab_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   tab_sort()
+
+       def lap_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for SCREEN SIZE, Select 2")
+           print("To sort by for STORAGE, Select 3")
+           print("To sort by for RATINGS, Select 4")
+           print("To sort by for PRICE, Select 5")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4,5): "))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? : ")
+                   if x == "1":
+                       query = "select * from laptop order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in SCREEN SIZE? : ")
+                   if x == "1":
+                       query = "select * from laptop order by DISPLAY_SIZE"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by DISPLAY_SIZE DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in STORAGE? :")
+                   if x == "1":
+                       query = "select * from laptop order by DISK_GB"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by DISK_GB DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("Incorrect Option")
+                       lap_sort()
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in RATINGS? : ")
+                   if x == "1":
+                       query = "select * from laptop order by RATINGS"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by RATINGS DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+
+               elif i == 5:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? : ")
+                   if x == "1":
+                       query = "select * from laptop order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from laptop order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data,
+                                      headers=["ID", "BRAND", "MODEL", "RAM_GB", "DISK_GB", "DISPLAY_SIZE", "PROCESSOR",
+                                               "GRAPHICS", "PRICE", "RATINGS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       lap_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   lap_sort()
+
+       def cam_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for EFFECTOVE PIXELS, Select 2")
+           print("To sort by for DIMENSIONS, Select 3")
+           print("To sort by for DIGITAL ZOOM, Select 4")
+           print("To sort by for PRICE, Select 5")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4,5):"))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? :")
+                   if x == "1":
+                       query = "select * from camera order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("Incorrect Option")
+                       cam_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in EFFECTOVE PIXELS? : ")
+                   if x == "1":
+                       query = "select * from camera order by EFFECTOVE PIXELS"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by EFFECTOVE PIXELS DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in DIMENSIONS? : ")
+                   if x == "1":
+                       query = "select * from camera order by DIMENSIONS"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by DIMENSIONS DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in DIGITAL ZOOM? : ")
+                   if x == "1":
+                       query = "select * from camera order by DIGITAL_ZOOMM"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by DIGITAL_ZOOM DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+
+               elif i == 5:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? :")
+                   if x == "1":
+                       query = "select * from camera order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from camera order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "PRICE", "MODEL", "TYPE", "DIMENSIONS",
+                                                     "EFFECTOVE PIXELS", "MODEL_NUMBER", "DISPLAY_RESOLUTION",
+                                                     "DIGITAL_ZOOM"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       cam_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   cam_sort()
+
+       def tel_sort():
+
+           print("\nTo sort by for BRAND, Select 1")
+           print("To sort by for RESOLUTION, Select 2")
+           print("To sort by for WEIGHT_kg, Select 3")
+           print("To sort by for DISPLAY_SIZE, Select 4")
+           print("To sort by for PRICE, Select 5")
+           L = []
+           N = int(input("\nHow Many sort do you want to add (1,2,3,4,5):"))
+           for i in range(N):
+               x = int(input("Select Category: "))
+               L.append(x)
+
+           for i in L:
+               if i == 1:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in BRAND ? :")
+                   if x == "1":
+                       query = "select * from television order by brand"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by brand DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("Incorrect Option")
+                       tel_sort()
+
+
+               elif i == 2:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in RESOLUTION? : ")
+                   if x == "1":
+                       query = "select * from television order by RESOLUTION"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by RESOLUTION DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+
+
+               elif i == 3:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in WEIGHT? : ")
+                   if x == "1":
+                       query = "select * from television order by WEIGHT"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by WEIGHT DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+
+               elif i == 4:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in DISPLAY SIZE ? : ")
+                   if x == "1":
+                       query = "select * from television order by DISPLAY_SIZE"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by DISPLAY_SIZE DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+
+               elif i == 5:
+                   x = input("\nDo you want in Ascending(1) or Descending(2) order in PRICE? :")
+                   if x == "1":
+                       query = "select * from television order by price"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   elif x == "2":
+                       query = "select * from television order by price DESC"
+                       mycursor.execute(query)
+                       data = mycursor.fetchall()
+                       print(tabulate(data, headers=["ID", "BRAND", "MODEL", "RESOLUTION", "DISPLAY_SIZE", "PRICE",
+                                                     "WEIGHT_kg", "OS"], tablefmt='psql'))
+
+                   else:
+                       print("\nIncorrect Option\n")
+                       tel_sort()
+               else:
+                   print("\nIncorrect Option\n")
+                   tel_sort()
+
+
+
+       def function_menu_mob():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for BACK TO MAIN MENU\n")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               mob_sort()
+
+           elif opt == 2:
+               filter_mob()
+
+           elif opt == 3:
+               mob_compare()
+
+           elif opt == 4:
+               main_menu()
+
+       def function_menu_tab():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for BACK TO MAIN MENU\n ")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               tab_sort()
+
+           elif opt == 2:
+               filter_tab()
+
+           elif opt == 3:
+               tab_compare()
+
+           elif opt == 4:
+               main_menu()
+
+       def function_menu_lap():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for BACK TO MAIN MENU\n ")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               lap_sort()
+
+           elif opt == 2:
+               filter_lap()
+
+           elif opt == 3:
+               lap_compare()
+
+           elif opt == 4:
+               main_menu()
+
+       def function_menu_cam():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for BACK TO MAIN MENU\n ")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               cam_sort()
+
+           elif opt == 2:
+               filter_cam()
+
+           elif opt == 3:
+               cam_compare()
+
+           elif opt == 4:
+               main_menu()
+
+       def function_menu_tel():
+           print("\nselect 1 for SORT ")
+           print("select 2 for FILTER ")
+           print("select 3 for COMPARE ")
+           print("select 4 for BACK TO MAIN MENU\n ")
+           opt = int(input("Enter the option : "))
+
+           if opt == 1:
+               tel_sort()
+
+           elif opt == 2:
+               filter_tel()
+
+           elif opt == 3:
+               tel_compare()
+
+           elif opt == 4:
+               main_menu()
+
+       def main_menu():
+
+           print("\n************  MOBILE (1)    *************")
+           print("************  TABLET (2)    *************")
+           print("************  LAPTOP (3)    *************")
+           print("************  CAMERA (4)    *************")
+           print("************  TELEVISION(5) *************")
+           print("************  NEW PRODUCTS (6)    ************")
+           print("************  EXIT (0)      *************\n")
+
+           cat = int(input(("Select Option : ")))
+
+           if cat == 0:
+              {
+                 }
+
+           elif cat == 1:
+               mobile()
+               ans = input("\nDo you wish to continue? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_mob()
+                   ans = input("\nDo you wish to continue? (y/n) : ")
+
+           elif cat == 2:
+               tablet()
+               ans = input("\nDo you wish to continue? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_tab()
+                   ans = input("\nDo you wish to continue? (y/n) : ")
+
+           elif cat == 3:
+               laptop()
+               ans = input("\nDo you wish to continue? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_lap()
+                   ans = input("\nDo you wish to continue? (y/n) : ")
+
+           elif cat == 4:
+               camera()
+               ans = input("\nDo you wish to continue? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_cam()
+                   ans = input("\nDo you wish to continue? (y/n) : ")
+
+           elif cat == 5:
+               television()
+               ans = input("\nDo you wish to continue? (y/n) : ")
+               while ans.lower() == 'y':
+                   function_menu_tel()
+                   ans = input("\nDo you wish to continue? (y/n) : ")
+
+           elif cat == 6:
+               disp_cat()
+               ans = input("\nDo you wish to continue? (y/n) : ")
+               while ans.lower() == 'y':
+                   main_menu()
+                   ans = input("\nDo you wish to continue? (y/n) : ")
+
+           else:
+               print("Wrong input")
+               main_menu()
+
+       print("\n\n*************************************************************************")
+       print("***************** WELCOME TO COMPARE PRODUCT SYSTEM *********************")
+       print("*************************************************************************")
+
+       main_menu()
+       
+       print("\n*****************************************************************************")
+       print("*************** THANK YOU FOR VISITING COMPARE PRODUCT SYSTEM ***************")
+       print("*****************************************************************************")
+
+   def regclear(self):
+      self.entry.delete(0,END)
+      self.entry2.delete(0,END)
+      self.entry3.delete(0,END)
+      self.entry4.delete(0,END)
+
+   def loginclear(self):
+      self.email_txt.delete(0,END)
+      self.password.delete(0,END)
+
+root=Tk()
+ob=App(root)
+root.mainloop()

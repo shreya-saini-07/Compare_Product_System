@@ -1,0 +1,30 @@
+1,HP,Notebook 14-df0008nx,8,64 GB (eMMC),14,Intel Celeron N4000,Intel HD Graphics 600,71259,4.5
+2,Lenovo,IdeaPad 330S-14IKB,4,1 TB HDD,14,Intel Core i5-8250U,Intel UHD Graphics 620,60991,4.4
+3,Huawei,MateBook D Volta,4,256 GB SSD,14,Intel Core i5-8250U,NVIDIA GeForce MX150 (2 GB),37990,3
+4,Dell,Inspiron 15 3567,16,1 TB HDD,15.6,Intel Core i3-7020U,Intel HD Graphics 620,18490,5
+5,Asus,VivoBook 15 X510UR,4,1 TB HDD,15.6,Intel Core i7-8550U,NVIDIA GeForce 930MX (2 GB),31490,2.8
+6,Dell,Vostro 5471,8,128 GB SSD/1 TB HDD,14,Intel Core i7-8550U,AMD Radeon 530 (4 GB),37990,4.9
+7,Apple,MacBook Air (Retina),4,128 GB (PCIe SSD),13.3,Intel Core i5 Dual Core,Intel UHD Graphics 617,51990,4.4
+8,Huawei,MateBook D,16,128 GB SSD/1 TB HDD,15.6,Intel Core i5-8250U,NVIDIA GeForce MX150 (2 GB),27990,3.8
+9,Huawei,MateBook X Pro,8,256 GB NVMe M.2 SSD,13.88,Intel Core i5-8250U,NVIDIA GeForce MX150 (2 GB),59909,4.8
+10,HP,14-cf0007nx,4,16 GB (Optane)/1 TB HDD,14,Intel Core i5-8250U,AMD Radeon 530 (2 GB),26290,3.3
+11,HP,15-db0001nx,16,1 TB HDD,15.6,AMD A9-9425,AMD Radeon R5,19909,4.3
+12,Acer,Swift 5,8,512 GB SSD,14,Intel Core i7-8565U,Intel GMA HD,59909,4.6
+13,Apple,MacBook Air,4,128 GB (PCIe Flash),13.3,Intel Core i5 Dual Core,Intel HD Graphics 6000,44990,5
+14,Acer,Swift 5 SF514-52TP-8933,8,512 GB SSD,14,Intel Core i7-8550U,Intel UHD Graphics 620,59909,5
+15,Apple,MacBook Pro (Retina + Touch Bar),32,256 GB SSD,15.4,Intel Core i7 6 Core,Radeon Pro 555X GDDR5 (4 GB),101990,2
+16,Acer,Swift 3 SF314-52G,4,512 GB SSD,14,Intel Core i7-8550U,NVIDIA GeForce MX150 (2 GB),43990,4.2
+17,Apple,MacBook Pro (Retina + Touch Bar),8,512 GB SSD,13.3,Intel Core i5 Quad Core,Intel Iris Plus Graphics 655,84990,3
+18,Apple,MacBook Pro (Retina + Touch Bar),4,256 GB SSD,13.3,Intel Core i5 Quad Core,Intel Iris Plus Graphics 655,77690,3.9
+19,Huawei,MateBook 13,16,512 GB SSD,13,Intel Core i7-8565U,NVIDIA GeForce MX150 (2 GB),49909,4.9
+20,Apple,MacBook Air (Retina),6,256 GB (PCIe SSD),13.3,Intel Core i5 Dual Core,Intel UHD Graphics 617,60990,2.4
+21,Dell,XPS 13 9380,4,256 GB PCIe NVMe M.2 SSD,13.3,Intel Core i5-8265U,Intel UHD Graphics 620,53990,3.6
+22,HP,Pavilion 13-an0001nx,32,256 GB PCIe NVMe M.2 SSD,13.3,Intel Core i7-8565U,Intel UHD Graphics 620,39909,4
+23,Apple,MacBook Air (Retina),8,256 GB (PCIe SSD),13.3,Intel Core i5 Dual Core,Intel UHD Graphics 617,60990,2.7
+24,Apple,MacBook Air (Retina),4,256 GB (PCIe SSD),13.3,Intel Core i5 Dual Core,Intel UHD Graphics 617,60990,5
+25,HP,Pavilion 14-ce0001nx,8,256 GB M.2 SSD/1 TB HDD,14,Intel Core i7-8550U,NVIDIA GeForce MX150 (4 GB),41990,4.9
+26,Apple,MacBook Air (Retina),8,128 GB (PCIe SSD),13.3,Intel Core i5 Dual Core,Intel UHD Graphics 617,51990,4.6
+27,HP,Pavilion 14-ce0000nx,16,256 GB M.2 SSD/1 TB HDD,14,Intel Core i7-8550U,NVIDIA GeForce MX150 (4 GB),41990,3.3
+28,Apple,MacBook Air (Retina),16,128 GB (PCIe SSD),13.3,Intel Core i5 Dual Core,Intel UHD Graphics 617,51990,3.4
+29,Huawei,MateBook D Volta,4,256 GB SSD,14,Intel Core i7-8550U,NVIDIA GeForce MX150 (2 GB),41990,3.7
+30,Apple,MacBook Air (Retina),8,512 GB SSD,14,Intel Core i7-8565U,NVIDIA GeForce MX150 (2 GB),48990,5

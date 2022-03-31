@@ -1,0 +1,334 @@
+*********************************************
+    WELCOME TO COMPARE PRODUCT SYSTEM 
+*********************************************
+
+************  MOBILE (1)       *************
+************  TABLET (2)       *************
+************  LAPTOP (3)       *************
+************  CAMERA (4)       *************
+************  TELEVISION (5)   *************
+************  NEW PRODUCTS (6) *************
+************  EXIT (0)         *************
+
+Select Option : 1
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------|
+|    1 | APPLE   | IPHONE 13 PRO       |        3 |       64 |            6.6 | 12MP + 2MP | 8MP Front Camera              |   80000 |
+|    2 | SAMSUNG | S20 ULTRA           |        4 |       32 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   15999 |
+|    3 | REALME  | REALME 2 PRO        |        4 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   67000 |
+|    4 | ONEPLUS | ONEPLUS 9           |        6 |       64 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   34567 |
+|    5 | OPPO    | OPPO A29            |        4 |       64 |            5.9 | 13MP Rear Camera | 5MP Front Camera        |   67555 |
+|    6 | XIAOMI  | XIAOMI 11           |        8 |       64 |            6.1 | 48MP + 8MP + 2MP + 2MP | 16MP Front Camera |   34000 |
+|    7 | GOOGLE  | PIXEL 6             |        4 |      128 |            6   | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   64000 |
+|    8 | APPLE   | IPHONE 13           |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera              |   22000 |
+|   10 | XIAOMI  | XIAOMI 11i          |        4 |      256 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   26000 |
+|   11 | OPPO    | OPPO A30            |        6 |      256 |            6.2 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   33000 |
+|   12 | REALME  | REALME 6 PRO        |        6 |       64 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   17000 |
+|   13 | GOOGLE  | PIXEL 6 PRO         |        4 |       32 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   18000 |
+|   14 | SAMSUNG | S21                 |        8 |       32 |            6.9 | 13MP Rear Camera | 5MP Front Camera        |   19000 |
+|   15 | REALME  | REALME 2            |        3 |       32 |            6.3 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   34000 |
+|   16 | APPLE   | IPHONE 13 PRO MAX   |        4 |       32 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   34999 |
+|   17 | SAMSUNG | S22                 |        8 |       64 |            5.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   12000 |
+|   18 | REDMI   | REDMI NOTE 8        |        4 |       32 |            5.9 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   13500 |
+|   19 | REDMI   | REDMI NOTE 9        |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   20 | REDMI   | REDMI NOTE 7        |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   21 | OPPO    | OPPO A31            |        4 |      128 |            6.2 | 13MP Rear Camera | 5MP Front Camera        |   32000 |
+|   22 | OPPO    | OPPO A30 PRO        |        4 |      256 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   67000 |
+|   23 | XIAOMI  | XIAOMI 12           |        8 |      256 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   32000 |
+|   24 | REDMI   | REDMI NOTE 20       |        4 |      128 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   16000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   22555 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera        |   26000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD      |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12     |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
+|   29 | SAMSUNG | SAMSUNG NOTE 10 PRO |        4 |      256 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   37000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10     |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Do you wish to continue? (y/n) : y
+
+select 1 for SORT 
+select 2 for FILTER 
+select 3 for COMPARE 
+select 4 for BACK TO MAIN MENU
+
+Enter the option : 1
+
+To sort by for BRAND, Select 1
+To sort by for ROM, Select 2
+To sort by for RAM, Select 3
+To sort by for PRICE, Select 4
+
+How Many sort do you want to add (1,2,3,4): 4
+Select Category: 1
+Select Category: 2
+Select Category: 3
+Select Category: 4
+
+Do you want in Ascending(1) or Descending(2) order in BRAND ? : 1
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------|
+|    1 | APPLE   | IPHONE 13 PRO       |        3 |       64 |            6.6 | 12MP + 2MP | 8MP Front Camera              |   80000 |
+|    8 | APPLE   | IPHONE 13           |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|   16 | APPLE   | IPHONE 13 PRO MAX   |        4 |       32 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   34999 |
+|    7 | GOOGLE  | PIXEL 6             |        4 |      128 |            6   | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   64000 |
+|   13 | GOOGLE  | PIXEL 6 PRO         |        4 |       32 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   18000 |
+|    4 | ONEPLUS | ONEPLUS 9           |        6 |       64 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   34567 |
+|    5 | OPPO    | OPPO A29            |        4 |       64 |            5.9 | 13MP Rear Camera | 5MP Front Camera        |   67555 |
+|   11 | OPPO    | OPPO A30            |        6 |      256 |            6.2 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   33000 |
+|   21 | OPPO    | OPPO A31            |        4 |      128 |            6.2 | 13MP Rear Camera | 5MP Front Camera        |   32000 |
+|   22 | OPPO    | OPPO A30 PRO        |        4 |      256 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   67000 |
+|    3 | REALME  | REALME 2 PRO        |        4 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   67000 |
+|   12 | REALME  | REALME 6 PRO        |        6 |       64 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   17000 |
+|   15 | REALME  | REALME 2            |        3 |       32 |            6.3 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   34000 |
+|   18 | REDMI   | REDMI NOTE 8        |        4 |       32 |            5.9 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   13500 |
+|   19 | REDMI   | REDMI NOTE 9        |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   20 | REDMI   | REDMI NOTE 7        |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   24 | REDMI   | REDMI NOTE 20       |        4 |      128 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   16000 |
+|    2 | SAMSUNG | S20 ULTRA           |        4 |       32 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   15999 |
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera              |   22000 |
+|   14 | SAMSUNG | S21                 |        8 |       32 |            6.9 | 13MP Rear Camera | 5MP Front Camera        |   19000 |
+|   17 | SAMSUNG | S22                 |        8 |       64 |            5.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   12000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   22555 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera        |   26000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD      |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12     |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
+|   29 | SAMSUNG | SAMSUNG NOTE 10 PRO |        4 |      256 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   37000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10     |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
+|    6 | XIAOMI  | XIAOMI 11           |        8 |       64 |            6.1 | 48MP + 8MP + 2MP + 2MP | 16MP Front Camera |   34000 |
+|   10 | XIAOMI  | XIAOMI 11i          |        4 |      256 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   26000 |
+|   23 | XIAOMI  | XIAOMI 12           |        8 |      256 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   32000 |
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Do you want in Ascending(1) or Descending(2) order in ROM? : 2
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------|
+|    1 | APPLE   | IPHONE 13 PRO       |        3 |       64 |            6.6 | 12MP + 2MP | 8MP Front Camera              |   80000 |
+|    4 | ONEPLUS | ONEPLUS 9           |        6 |       64 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   34567 |
+|    5 | OPPO    | OPPO A29            |        4 |       64 |            5.9 | 13MP Rear Camera | 5MP Front Camera        |   67555 |
+|    6 | XIAOMI  | XIAOMI 11           |        8 |       64 |            6.1 | 48MP + 8MP + 2MP + 2MP | 16MP Front Camera |   34000 |
+|   12 | REALME  | REALME 6 PRO        |        6 |       64 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   17000 |
+|   17 | SAMSUNG | S22                 |        8 |       64 |            5.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   12000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   22555 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera        |   26000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD      |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|    2 | SAMSUNG | S20 ULTRA           |        4 |       32 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   15999 |
+|   13 | GOOGLE  | PIXEL 6 PRO         |        4 |       32 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   18000 |
+|   14 | SAMSUNG | S21                 |        8 |       32 |            6.9 | 13MP Rear Camera | 5MP Front Camera        |   19000 |
+|   15 | REALME  | REALME 2            |        3 |       32 |            6.3 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   34000 |
+|   16 | APPLE   | IPHONE 13 PRO MAX   |        4 |       32 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   34999 |
+|   18 | REDMI   | REDMI NOTE 8        |        4 |       32 |            5.9 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   13500 |
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera              |   22000 |
+|   10 | XIAOMI  | XIAOMI 11i          |        4 |      256 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   26000 |
+|   11 | OPPO    | OPPO A30            |        6 |      256 |            6.2 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   33000 |
+|   22 | OPPO    | OPPO A30 PRO        |        4 |      256 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   67000 |
+|   23 | XIAOMI  | XIAOMI 12           |        8 |      256 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   32000 |
+|   29 | SAMSUNG | SAMSUNG NOTE 10 PRO |        4 |      256 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   37000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10     |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
+|    3 | REALME  | REALME 2 PRO        |        4 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   67000 |
+|    7 | GOOGLE  | PIXEL 6             |        4 |      128 |            6   | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   64000 |
+|    8 | APPLE   | IPHONE 13           |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|   19 | REDMI   | REDMI NOTE 9        |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   20 | REDMI   | REDMI NOTE 7        |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   21 | OPPO    | OPPO A31            |        4 |      128 |            6.2 | 13MP Rear Camera | 5MP Front Camera        |   32000 |
+|   24 | REDMI   | REDMI NOTE 20       |        4 |      128 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   16000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12     |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Do you want in Ascending(1) or Descending(2) order in RAM? : 1
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------|
+|    1 | APPLE   | IPHONE 13 PRO       |        3 |       64 |            6.6 | 12MP + 2MP | 8MP Front Camera              |   80000 |
+|   15 | REALME  | REALME 2            |        3 |       32 |            6.3 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   34000 |
+|    2 | SAMSUNG | S20 ULTRA           |        4 |       32 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   15999 |
+|    3 | REALME  | REALME 2 PRO        |        4 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   67000 |
+|    5 | OPPO    | OPPO A29            |        4 |       64 |            5.9 | 13MP Rear Camera | 5MP Front Camera        |   67555 |
+|    7 | GOOGLE  | PIXEL 6             |        4 |      128 |            6   | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   64000 |
+|   10 | XIAOMI  | XIAOMI 11i          |        4 |      256 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   26000 |
+|   13 | GOOGLE  | PIXEL 6 PRO         |        4 |       32 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   18000 |
+|   16 | APPLE   | IPHONE 13 PRO MAX   |        4 |       32 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   34999 |
+|   18 | REDMI   | REDMI NOTE 8        |        4 |       32 |            5.9 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   13500 |
+|   21 | OPPO    | OPPO A31            |        4 |      128 |            6.2 | 13MP Rear Camera | 5MP Front Camera        |   32000 |
+|   22 | OPPO    | OPPO A30 PRO        |        4 |      256 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   67000 |
+|   24 | REDMI   | REDMI NOTE 20       |        4 |      128 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   16000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12     |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
+|   29 | SAMSUNG | SAMSUNG NOTE 10 PRO |        4 |      256 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   37000 |
+|    4 | ONEPLUS | ONEPLUS 9           |        6 |       64 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   34567 |
+|    8 | APPLE   | IPHONE 13           |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|   11 | OPPO    | OPPO A30            |        6 |      256 |            6.2 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   33000 |
+|   12 | REALME  | REALME 6 PRO        |        6 |       64 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   17000 |
+|   19 | REDMI   | REDMI NOTE 9        |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   20 | REDMI   | REDMI NOTE 7        |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD      |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10     |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
+|    6 | XIAOMI  | XIAOMI 11           |        8 |       64 |            6.1 | 48MP + 8MP + 2MP + 2MP | 16MP Front Camera |   34000 |
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera              |   22000 |
+|   14 | SAMSUNG | S21                 |        8 |       32 |            6.9 | 13MP Rear Camera | 5MP Front Camera        |   19000 |
+|   17 | SAMSUNG | S22                 |        8 |       64 |            5.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   12000 |
+|   23 | XIAOMI  | XIAOMI 12           |        8 |      256 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   32000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   22555 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera        |   26000 |
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Do you want in Ascending(1) or Descending(2) order in PRICE? : 2
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------|
+|    1 | APPLE   | IPHONE 13 PRO       |        3 |       64 |            6.6 | 12MP + 2MP | 8MP Front Camera              |   80000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10     |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
+|    5 | OPPO    | OPPO A29            |        4 |       64 |            5.9 | 13MP Rear Camera | 5MP Front Camera        |   67555 |
+|    3 | REALME  | REALME 2 PRO        |        4 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   67000 |
+|   22 | OPPO    | OPPO A30 PRO        |        4 |      256 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   67000 |
+|    7 | GOOGLE  | PIXEL 6             |        4 |      128 |            6   | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   64000 |
+|   20 | REDMI   | REDMI NOTE 7        |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD      |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   29 | SAMSUNG | SAMSUNG NOTE 10 PRO |        4 |      256 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   37000 |
+|   16 | APPLE   | IPHONE 13 PRO MAX   |        4 |       32 |            6.1 | 12MP + 2MP | 8MP Front Camera              |   34999 |
+|    4 | ONEPLUS | ONEPLUS 9           |        6 |       64 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   34567 |
+|    6 | XIAOMI  | XIAOMI 11           |        8 |       64 |            6.1 | 48MP + 8MP + 2MP + 2MP | 16MP Front Camera |   34000 |
+|    8 | APPLE   | IPHONE 13           |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|   15 | REALME  | REALME 2            |        3 |       32 |            6.3 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   34000 |
+|   11 | OPPO    | OPPO A30            |        6 |      256 |            6.2 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   33000 |
+|   21 | OPPO    | OPPO A31            |        4 |      128 |            6.2 | 13MP Rear Camera | 5MP Front Camera        |   32000 |
+|   23 | XIAOMI  | XIAOMI 12           |        8 |      256 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   32000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12     |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
+|   10 | XIAOMI  | XIAOMI 11i          |        4 |      256 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   26000 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera        |   26000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   22555 |
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera              |   22000 |
+|   14 | SAMSUNG | S21                 |        8 |       32 |            6.9 | 13MP Rear Camera | 5MP Front Camera        |   19000 |
+|   13 | GOOGLE  | PIXEL 6 PRO         |        4 |       32 |            6.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   18000 |
+|   12 | REALME  | REALME 6 PRO        |        6 |       64 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   17000 |
+|   24 | REDMI   | REDMI NOTE 20       |        4 |      128 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   16000 |
+|    2 | SAMSUNG | S20 ULTRA           |        4 |       32 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   15999 |
+|   19 | REDMI   | REDMI NOTE 9        |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   18 | REDMI   | REDMI NOTE 8        |        4 |       32 |            5.9 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   13500 |
+|   17 | SAMSUNG | S22                 |        8 |       64 |            5.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   12000 |
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Do you wish to continue? (y/n) : y
+
+select 1 for SORT 
+select 2 for FILTER 
+select 3 for COMPARE 
+select 4 for BACK TO MAIN MENU
+
+Enter the option : 2
+
+To add filter for BRAND, Select 1
+To add filter for ROM, Select 2
+To add filter for RAM, Select 3
+To add filter for PRICE, Select 4
+
+How Many filters do you want to add (1,2,3,4): 4
+Enter Filter to Add : 1
+Enter Filter to Add : 2
+Enter Filter to Add : 3
+Enter Filter to Add : 4
+
+Enter BRAND Name : samsung
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------|
+|    2 | SAMSUNG | S20 ULTRA           |        4 |       32 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   15999 |
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera              |   22000 |
+|   14 | SAMSUNG | S21                 |        8 |       32 |            6.9 | 13MP Rear Camera | 5MP Front Camera        |   19000 |
+|   17 | SAMSUNG | S22                 |        8 |       64 |            5.8 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   12000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera              |   22555 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera        |   26000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD      |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12     |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
+|   29 | SAMSUNG | SAMSUNG NOTE 10 PRO |        4 |      256 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   37000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10     |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
++------+---------+---------------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Enter ROM Size : 128
++------+---------+-----------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL           |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+-----------------+----------+----------+----------------+--------------------------------------------+---------|
+|    3 | REALME  | REALME 2 PRO    |        4 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   67000 |
+|    7 | GOOGLE  | PIXEL 6         |        4 |      128 |            6   | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   64000 |
+|    8 | APPLE   | IPHONE 13       |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|   19 | REDMI   | REDMI NOTE 9    |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   20 | REDMI   | REDMI NOTE 7    |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   21 | OPPO    | OPPO A31        |        4 |      128 |            6.2 | 13MP Rear Camera | 5MP Front Camera        |   32000 |
+|   24 | REDMI   | REDMI NOTE 20   |        4 |      128 |            6.2 | 13MP + 8MP + 2MP + 2MP | 16MP Front Camera |   16000 |
+|   28 | SAMSUNG | SAMSUNG NOTE 12 |        4 |      128 |            6.6 | 13MP + 2MP | 5MP Front Camera              |   32000 |
++------+---------+-----------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Enter RAM Size : 6
++------+---------+-----------------+----------+----------+----------------+--------------------------------------------+---------+
+|   ID | BRAND   | MODEL           |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                                     |   PRICE |
+|------+---------+-----------------+----------+----------+----------------+--------------------------------------------+---------|
+|    4 | ONEPLUS | ONEPLUS 9       |        6 |       64 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   34567 |
+|    8 | APPLE   | IPHONE 13       |        6 |      128 |            7.2 | 13MP + 2MP | 5MP Front Camera              |   34000 |
+|   11 | OPPO    | OPPO A30        |        6 |      256 |            6.2 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   33000 |
+|   12 | REALME  | REALME 6 PRO    |        6 |       64 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   17000 |
+|   19 | REDMI   | REDMI NOTE 9    |        6 |      128 |            6.7 | 64MP + 32MP + 8MP + 2MP | 8MP Front Camera |   14599 |
+|   20 | REDMI   | REDMI NOTE 7    |        6 |      128 |            7   | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   27 | SAMSUNG | SAMSUNG Z FOLD  |        6 |       64 |            6.5 | 12MP + 2MP | 8MP Front Camera              |   54000 |
+|   30 | SAMSUNG | SAMSUNG NOTE 10 |        6 |      256 |            6.8 | 12MP + 2MP | 8MP Front Camera              |   76000 |
++------+---------+-----------------+----------+----------+----------------+--------------------------------------------+---------+
+
+Enter Minimum PRICE : 20000
+Enter Maximum PRICE : 30000
+
++------+---------+---------------------+----------+----------+----------------+-------------------------------------+---------+
+|   ID | BRAND   | MODEL               |   RAM_GB |   ROM_GB |   DISPLAY_SIZE | CAMERA                              |   PRICE |
+|------+---------+---------------------+----------+----------+----------------+-------------------------------------+---------|
+|    9 | SAMSUNG | S21 ULTRA           |        8 |      256 |            6.5 | 13MP + 2MP | 5MP Front Camera       |   22000 |
+|   10 | XIAOMI  | XIAOMI 11i          |        4 |      256 |            6.3 | 12MP + 2MP | 8MP Front Camera       |   26000 |
+|   25 | SAMSUNG | SAMSUNG NOTE 11     |        8 |       64 |            6.3 | 12MP + 2MP | 8MP Front Camera       |   22555 |
+|   26 | SAMSUNG | SAMSUNG GALAXY EDGE |        8 |       64 |            6.4 | 13MP Rear Camera | 5MP Front Camera |   26000 |
++------+---------+---------------------+----------+----------+----------------+-------------------------------------+---------+
+
+Do you wish to continue? (y/n) : y
+
+select 1 for SORT 
+select 2 for FILTER 
+select 3 for COMPARE 
+select 4 for BACK TO MAIN MENU
+
+Enter the option : 3
+
+Enter how many mobiles do you want to compare (max 3) : 3
+
+Enter ID to compare: 5
+
+Enter ID to compare: 9
+
+Enter ID to compare: 17
+
+ID    BRAND      MODEL                     RAM_GB   ROM_GB   DISPLAY_SIZE    CAMERA                                           PRICE      
+5     OPPO       OPPO A29                  4        64       5.9             13MP Rear Camera | 5MP Front Camera              67555     
+9     SAMSUNG    S21 ULTRA                 8        256      6.5             13MP + 2MP | 5MP Front Camera                    22000     
+17    SAMSUNG    S22                       8        64       5.8             64MP + 32MP + 8MP + 2MP | 8MP Front Camera       12000     
+
+Do you wish to continue? (y/n) : y
+
+select 1 for SORT 
+select 2 for FILTER 
+select 3 for COMPARE 
+select 4 for BACK TO MAIN MENU
+
+Enter the option : 4
+
+************  MOBILE (1)    *************
+************  TABLET (2)    *************
+************  LAPTOP (3)    *************
+************  CAMERA (4)    *************
+************  TELEVISION(5) *************
+************  NEW PRODUCTS (6)    ************
+************  EXIT (0)      *************
+
+Select Option : 0
+
+Do you wish to continue? (y/n) : n
+
+***********************************************
+THANK YOU FOR VISITING COMPARE PRODUCT SYSTEM
+***********************************************

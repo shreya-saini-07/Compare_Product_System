@@ -1,0 +1,105 @@
+************************************************
+WELCOME ADMIN TO COMPARE PRODUCT SYSTEM 
+************************************************
+
+************  MOBILE (1)          ************
+************  TABLET (2)          ************
+************  LAPTOP (3)          ************
+************  CAMERA (4)          ************
+************  TELEVISION (5)      ************
+************  NEW PRODUCTS (6)    ************
+************  ADD CATEGORY (7)    ************
+************  DELETE CATEGORY (8) ************
+************  EXIT (0)            ************
+
+Select Option : 7
+Enter the name of category you want to add: computer
+Enter the number of field name you want to add: 3
+Enter the name of field name: brand
+Enter the name of field name: price
+Enter the name of field name: os
+Do you want to add records?(Y/N) y
+How many records you want to add?: 2
+Enter ID to insert records: 1
+Enter value of BRAND :
+dell
+Enter value of PRICE :
+55000
+Enter value of OS :
+windows 11
+Enter ID to insert records: 2
+Enter value of' BRAND :
+hp
+Enter value of PRICE :
+67000
+Enter value of OS :
+dos
+Category Successfully Created with records
+
+Do you wish to continue with ADD CATEGORY? (y/n) : n
+
+************  MOBILE (1)          ************
+************  TABLET (2)          ************
+************  LAPTOP (3)          ************
+************  CAMERA (4)          ************
+************  TELEVISION (5)      ************
+************  NEW PRODUCTS (6)    ************
+************  ADD CATEGORY (7)    ************
+************  DELETE CATEGORY (8) ************
+************  EXIT (0)            ************
+ 
+Select Option : 6
++----------------+
+| NEW PRODUCTS   |
+|----------------|
+| COMPUTER       |        
++----------------+
+Enter the name of category you want to see? computer
++---+------+-------+------------+
+| 1 | DELL | 55000 | WINDOWS 11 |
+| 2 | HP   | 67000 | DOS        |
++---+------+-------+------------+
+
+Do you wish to continue with DISPLAY NEW CATEGORY? (y/n) : n
+
+************  MOBILE (1)          ************
+************  TABLET (2)          ************
+************  LAPTOP (3)          ************
+************  CAMERA (4)          ************
+************  TELEVISION (5)      ************
+************  NEW PRODUCTS (6)    ************
+************  ADD CATEGORY (7)    ************
+************  DELETE CATEGORY (8) ************
+************  EXIT (0)            ************
+
+Select Option : 8
++------------+
+| PRODUCTS   |
+|------------|
+| camera     |
+| COMPUTER   |
+| laptop     |
+| mobile     |
+| tablet     |
+| television |
++------------+
+Enter the name of category you want to delete: computer
+Category successfully deleted
+
+Do you wish to continue with DELETE CATEGORY? (y/n) : n
+
+************  MOBILE (1)          ************
+************  TABLET (2)          ************
+************  LAPTOP (3)          ************
+************  CAMERA (4)          ************
+************  TELEVISION (5)      ************
+************  NEW PRODUCTS (6)    ************
+************  ADD CATEGORY (7)    ************
+************  DELETE CATEGORY (8) ************
+************  EXIT (0)            ************
+
+Select Option : 0
+
+*****************************************************************************
+*************** THANK YOU FOR VISITING COMPARE PRODUCT SYSTEM ***************
+*****************************************************************************
